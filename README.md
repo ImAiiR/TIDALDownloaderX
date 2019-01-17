@@ -2,6 +2,8 @@
 For downloading videos from TIDAL.
 (ffmpeg required)
 
+Modified from TidalDownloader, here - https://github.com/italicsjenga/TidalDownloader
+
 TIDAL serves videos in segments of 2-10s .ts files, all with the same string before (and occasionally, after) the numbered clip.
 
 TIDALDownloaderX fetches these from TIDAL, as long as you provide it with the starting link. In this case, the first .ts segment, with [0.ts] in it's link. TIDALDownloaderX will begin saving them as [1, 2, 3, etc].ts in your chosen folder. 
