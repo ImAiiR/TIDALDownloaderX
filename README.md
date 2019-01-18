@@ -1,6 +1,7 @@
 # TIDALDownloaderX
 For downloading videos from TIDAL.
-(ffmpeg required)
+
+[THIS README IS OUTDATED, AND WILL BE FIXED LATER.]
 
 Modified from TidalDownloader, here - https://github.com/italicsjenga/TidalDownloader
 
