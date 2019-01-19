@@ -1,5 +1,5 @@
 # TIDALDownloaderX
-[Modified from <a href="https://github.com/italicsjenga/TidalDownloader">TidalDownloader</a>]
+Modified from <a href="https://github.com/italicsjenga/TidalDownloader">TidalDownloader</a>
 <p>
   <a href="https://github.com/ImAiiR/TIDALDownloaderX">
     <img src="https://raw.githubusercontent.com/ImAiiR/TIDALDownloaderX/master/screen1.jpg">
