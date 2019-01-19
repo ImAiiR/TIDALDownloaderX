@@ -1,16 +1,20 @@
 # TIDALDownloaderX
-For downloading videos from TIDAL.
+[Modified from <a href="https://github.com/italicsjenga/TidalDownloader">TidalDownloader</a>]
+<p>
+  <a href="https://github.com/ImAiiR/TIDALDownloaderX">
+    <img src="https://i.imgur.com/hpPPqEo.jpg">
+  </a>
+</p>
 
 [THIS README IS OUTDATED, AND WILL BE FIXED LATER.]
 
-Modified from TidalDownloader, here - https://github.com/italicsjenga/TidalDownloader
+## About
+TIDALDownloaderX is a simple C# program for downloading videos from the streaming platform <a href="https://tidal.com/">TIDAL</a>.
 
-TIDAL serves videos in segments of 2-10s .ts files, all with the same string before (and occasionally, after) the numbered clip.
+TIDAL serves videos in segments of 2-10 second .ts files, all with the same string before (and occasionally, after) the numbered clip.
 
-TIDALDownloaderX fetches these from TIDAL, as long as you provide it with the starting link. In this case, the first .ts segment, with [0.ts] in it's link. TIDALDownloaderX will begin saving them as [1, 2, 3, etc].ts in your chosen folder. 
+TIDALDownloaderX takes the first link that TIDAL sends to the user, and downloads the following .ts files, until it has completed downloading all .ts files relating to that video.
 
-You can get the starting link by turning on [Developer Tools] in Google Chrome, and start playing part of the video you want to downloadd (in the quality you want). You want to copy the link that includes [0.ts], and set the [End] value to something at or above the number of files that makes up the video. The program automatically detects if you go over, so the default should be fine, but check that your session hasn't expired.
+## Tutorial
 
-After you've downloaded them all, click [Stitch], then follow the directions given.
-
-(This tool is in development at the moment. Somethings will not work preoperly, or may not be correct in this README.)
+**Not typed yet, coming soon.** 
