@@ -2,11 +2,9 @@
 [Modified from <a href="https://github.com/italicsjenga/TidalDownloader">TidalDownloader</a>]
 <p>
   <a href="https://github.com/ImAiiR/TIDALDownloaderX">
-    <img src="https://i.imgur.com/hpPPqEo.jpg">
+    <img src="https://raw.githubusercontent.com/ImAiiR/TIDALDownloaderX/master/screen1.jpg">
   </a>
 </p>
-
-[THIS README IS OUTDATED, AND WILL BE FIXED LATER.]
 
 ## About
 TIDALDownloaderX is a simple C# program for downloading videos from the streaming platform <a href="https://tidal.com/">TIDAL</a>.
