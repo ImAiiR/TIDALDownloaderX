@@ -55,6 +55,8 @@ namespace TIDALDownloaderX
                     output.AppendText(" \n");
                     output.AppendText("Job Completed!\n");
                     output.AppendText("If not, your session expired. Refresh the TIDAL page, get a new link, & try again!\n");
+                    output.AppendText(" \n");
+                    output.AppendText("Be sure to delete JAMSTA & FFmpeg from the chosen location after completing everything!\n");
                     break;
                 }
             }
