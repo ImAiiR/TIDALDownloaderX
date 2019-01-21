@@ -1,8 +1,14 @@
-# TIDALDownloaderX
-Modified from <a href="https://github.com/italicsjenga/TidalDownloader">TidalDownloader</a>
-<p>
+<p style="align:center;">
   <a href="https://github.com/ImAiiR/TIDALDownloaderX">
-    <img src="https://raw.githubusercontent.com/ImAiiR/TIDALDownloaderX/master/screen1.jpg">
+    <img src="https://raw.githubusercontent.com/ImAiiR/TIDALDownloaderX/master/-assets/TDX-1.png" />
+  </a>
+</p>
+
+Modified from <a href="https://github.com/italicsjenga/TidalDownloader">TidalDownloader</a> by <a href="https://github.com/italicsjenga/">Alex Janka</a>
+
+<p style="align:center;">
+  <a href="https://github.com/ImAiiR/TIDALDownloaderX">
+    <img src="https://raw.githubusercontent.com/ImAiiR/TIDALDownloaderX/master/-assets/screen1.jpg" />
   </a>
 </p>
 
