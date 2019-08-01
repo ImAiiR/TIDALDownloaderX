@@ -49,6 +49,9 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.openFolder = new System.Windows.Forms.Button();
             this.ffmpegButton = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.startNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.endNo)).BeginInit();
             this.SuspendLayout();
@@ -234,7 +237,7 @@
             // 
             this.openFolder.Location = new System.Drawing.Point(115, 293);
             this.openFolder.Name = "openFolder";
-            this.openFolder.Size = new System.Drawing.Size(156, 23);
+            this.openFolder.Size = new System.Drawing.Size(157, 23);
             this.openFolder.TabIndex = 19;
             this.openFolder.Text = "Open Folder";
             this.openFolder.UseVisualStyleBackColor = true;
@@ -249,6 +252,18 @@
             this.ffmpegButton.Text = "Download Needed Files";
             this.ffmpegButton.UseVisualStyleBackColor = true;
             this.ffmpegButton.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            // 
+            // backgroundWorker3
+            // 
+            this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
             // 
             // Form1
             // 
@@ -311,6 +326,9 @@
         private System.Windows.Forms.Button aboutButton;
         private System.Windows.Forms.Button openFolder;
         private System.Windows.Forms.Button ffmpegButton;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
     }
 }
 
