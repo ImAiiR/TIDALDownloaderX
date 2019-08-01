@@ -22,5 +22,17 @@ namespace TIDALDownloaderX.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string savedFolder {
+            get {
+                return ((string)(this["savedFolder"]));
+            }
+            set {
+                this["savedFolder"] = value;
+            }
+        }
     }
 }
