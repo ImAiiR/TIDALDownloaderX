@@ -89,6 +89,7 @@
             // output
             // 
             this.output.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
+            this.output.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F);
             this.output.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.output.Location = new System.Drawing.Point(115, 122);
             this.output.Multiline = true;

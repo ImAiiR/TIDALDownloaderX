@@ -30,14 +30,12 @@ namespace TIDALDownloaderX
 
         private void pickFolder_Click(object sender, EventArgs e)
         {
-            // Open Folder Browser to select path
+            // Open Folder Browser to select path & Save
             folderBrowserDialog.ShowDialog();
-
-            // Save the value from the folderBrowserDialog into the settings.
-            //Settings.Default.savedFolder = folderBrowserDialog.SelectedPath;
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
-            //Settings.Default.Upgrade();
+            Settings.Default.savedFolder = folderBrowserDialog.SelectedPath;
+            Settings.Default.Save();
+            Settings.Default.Reload();
+            Settings.Default.Upgrade();
         }
 
         private void stitchButton_Click(object sender, EventArgs e)
@@ -56,7 +54,7 @@ namespace TIDALDownloaderX
 
             if (currentVersion.Contains(newVersion))
             {
-                // Do nothing.
+                // Do what usually happens at startup
             }
             else
             {
@@ -68,8 +66,24 @@ namespace TIDALDownloaderX
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                    // Do nothing.
+                    // Do what usually happens at startup
                 }
+            }
+
+            // Do what usually happens at startup
+            folderBrowserDialog.SelectedPath = Settings.Default.savedFolder.ToString();
+            if (folderBrowserDialog.SelectedPath == null | folderBrowserDialog.SelectedPath == "")
+            {
+                output.Invoke(new Action(() => output.Text = String.Empty));
+                output.Invoke(new Action(() => output.AppendText("No default path has been set! Remember to Choose a Folder!\n")));
+            }
+            else
+            {
+                output.Invoke(new Action(() => output.Text = String.Empty));
+                output.Invoke(new Action(() => output.AppendText("Using the last folder you've selected on TDX as your chosen folder!\n")));
+                output.Invoke(new Action(() => output.AppendText("\n")));
+                output.Invoke(new Action(() => output.AppendText("Default Folder:\n")));
+                output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\n")));
             }
         }
 
