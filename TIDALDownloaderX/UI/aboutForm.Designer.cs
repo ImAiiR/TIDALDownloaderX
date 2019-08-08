@@ -61,8 +61,8 @@
             this.aboutTextBox.Size = new System.Drawing.Size(332, 141);
             this.aboutTextBox.TabIndex = 1;
             this.aboutTextBox.Text = " Original Program - Alex Janka (italicsjenga)\n Modified By - AiiR\n\n JAMSTA Create" +
-    "d By - AiiR\n FFmpeg Created By - FFmpeg team\n\n Copyright © 2019\n\n Version 1.0 (A" +
-    "ugust 1, 2019)";
+    "d By - AiiR\n FFmpeg Created By - FFmpeg team\n\n Copyright © 2019\n\n Version 1.0.2 " +
+    "(August 8, 2019)";
             this.aboutTextBox.TextChanged += new System.EventHandler(this.aboutTextBox_TextChanged);
             // 
             // aboutForm

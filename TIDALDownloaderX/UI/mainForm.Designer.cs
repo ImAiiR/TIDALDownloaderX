@@ -52,6 +52,9 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.devTestButton = new System.Windows.Forms.Button();
+            this.renameText = new System.Windows.Forms.TextBox();
+            this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.startNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.endNo)).BeginInit();
             this.SuspendLayout();
@@ -220,15 +223,15 @@
             this.jamstaOpen.Name = "jamstaOpen";
             this.jamstaOpen.Size = new System.Drawing.Size(97, 23);
             this.jamstaOpen.TabIndex = 17;
-            this.jamstaOpen.Text = "Open JAMSTA";
+            this.jamstaOpen.Text = "Merge Files";
             this.jamstaOpen.UseVisualStyleBackColor = true;
             this.jamstaOpen.Click += new System.EventHandler(this.jamstaOpen_Click_1);
             // 
             // aboutButton
             // 
-            this.aboutButton.Location = new System.Drawing.Point(12, 293);
+            this.aboutButton.Location = new System.Drawing.Point(196, 293);
             this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(97, 23);
+            this.aboutButton.Size = new System.Drawing.Size(76, 23);
             this.aboutButton.TabIndex = 18;
             this.aboutButton.Text = "About";
             this.aboutButton.UseVisualStyleBackColor = true;
@@ -238,7 +241,7 @@
             // 
             this.openFolder.Location = new System.Drawing.Point(115, 293);
             this.openFolder.Name = "openFolder";
-            this.openFolder.Size = new System.Drawing.Size(157, 23);
+            this.openFolder.Size = new System.Drawing.Size(76, 23);
             this.openFolder.TabIndex = 19;
             this.openFolder.Text = "Open Folder";
             this.openFolder.UseVisualStyleBackColor = true;
@@ -266,11 +269,44 @@
             // 
             this.backgroundWorker3.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker3_DoWork);
             // 
+            // devTestButton
+            // 
+            this.devTestButton.Enabled = false;
+            this.devTestButton.Location = new System.Drawing.Point(122, 259);
+            this.devTestButton.Name = "devTestButton";
+            this.devTestButton.Size = new System.Drawing.Size(144, 23);
+            this.devTestButton.TabIndex = 21;
+            this.devTestButton.Text = "Test Button";
+            this.devTestButton.UseVisualStyleBackColor = true;
+            this.devTestButton.Visible = false;
+            this.devTestButton.Click += new System.EventHandler(this.devTestButton_Click);
+            // 
+            // renameText
+            // 
+            this.renameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.renameText.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.renameText.Location = new System.Drawing.Point(12, 293);
+            this.renameText.MinimumSize = new System.Drawing.Size(97, 20);
+            this.renameText.Multiline = true;
+            this.renameText.Name = "renameText";
+            this.renameText.Size = new System.Drawing.Size(97, 23);
+            this.renameText.TabIndex = 22;
+            this.renameText.Text = "Filename";
+            this.renameText.WordWrap = false;
+            this.renameText.Enter += new System.EventHandler(this.renameText_Enter);
+            this.renameText.Leave += new System.EventHandler(this.renameText_Leave);
+            // 
+            // backgroundWorker4
+            // 
+            this.backgroundWorker4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker4_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 328);
+            this.Controls.Add(this.renameText);
+            this.Controls.Add(this.devTestButton);
             this.Controls.Add(this.ffmpegButton);
             this.Controls.Add(this.openFolder);
             this.Controls.Add(this.aboutButton);
@@ -330,6 +366,9 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
+        private System.Windows.Forms.Button devTestButton;
+        private System.Windows.Forms.TextBox renameText;
+        private System.ComponentModel.BackgroundWorker backgroundWorker4;
     }
 }
 
