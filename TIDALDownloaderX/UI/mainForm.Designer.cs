@@ -285,11 +285,11 @@
             // 
             this.renameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.renameText.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.renameText.Location = new System.Drawing.Point(12, 293);
-            this.renameText.MinimumSize = new System.Drawing.Size(97, 20);
+            this.renameText.Location = new System.Drawing.Point(13, 293);
+            this.renameText.MinimumSize = new System.Drawing.Size(96, 23);
             this.renameText.Multiline = true;
             this.renameText.Name = "renameText";
-            this.renameText.Size = new System.Drawing.Size(97, 23);
+            this.renameText.Size = new System.Drawing.Size(96, 23);
             this.renameText.TabIndex = 22;
             this.renameText.Text = "Filename";
             this.renameText.WordWrap = false;
