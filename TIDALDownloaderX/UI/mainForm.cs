@@ -35,8 +35,6 @@ namespace TIDALDownloaderX
             folderBrowserDialog.ShowDialog();
             Settings.Default.savedFolder = folderBrowserDialog.SelectedPath;
             Settings.Default.Save();
-            Settings.Default.Reload();
-            Settings.Default.Upgrade();
         }
 
         private void stitchButton_Click(object sender, EventArgs e)
