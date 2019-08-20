@@ -294,6 +294,7 @@
             this.renameText.TabIndex = 22;
             this.renameText.Text = "Filename";
             this.renameText.WordWrap = false;
+            this.renameText.TextChanged += new System.EventHandler(this.renameText_TextChanged);
             this.renameText.Enter += new System.EventHandler(this.renameText_Enter);
             this.renameText.Leave += new System.EventHandler(this.renameText_Leave);
             // 
