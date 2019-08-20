@@ -71,6 +71,7 @@ namespace TIDALDownloaderX
 
             // Do what usually happens at startup
             folderBrowserDialog.SelectedPath = Settings.Default.savedFolder.ToString();
+            mp4Checkbox.Checked = Properties.Settings.Default.mp4Chk;
             if (folderBrowserDialog.SelectedPath == null | folderBrowserDialog.SelectedPath == "")
             {
                 output.Invoke(new Action(() => output.Text = String.Empty));
@@ -180,7 +181,12 @@ namespace TIDALDownloaderX
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            WebClient wc = new WebClient();
+            if (File.Exists(folderBrowserDialog.SelectedPath + "/00000000.ts"))
+            {
+                output.Invoke(new Action(() => output.Text = String.Empty));
+                output.Invoke(new Action(() => output.AppendText("ERROR: You already have .ts files downloaded! Be sure to merge the files together before downloading a new video!\n")));
+                return;
+            }
 
             if (folderBrowserDialog.SelectedPath == null | folderBrowserDialog.SelectedPath == "")
             {
@@ -196,6 +202,8 @@ namespace TIDALDownloaderX
                 return;
             }
 
+            WebClient wc = new WebClient();
+
             String loc = folderBrowserDialog.SelectedPath;
 
             for (int i = (int)startNo.Value; i < (int)endNo.Value + 1; i++)
@@ -205,7 +213,7 @@ namespace TIDALDownloaderX
 
                 try
                 {
-                    wc.DownloadFile(URI.Text + i.ToString() + ".ts" + suffix.Text, loc + "\\" + i.ToString().PadLeft(6, '0') + ".ts");
+                    wc.DownloadFile(URI.Text + i.ToString() + ".ts" + suffix.Text, loc + "\\" + i.ToString().PadLeft(8, '0') + ".ts");
                 }
                 catch
                 {
@@ -366,45 +374,97 @@ namespace TIDALDownloaderX
             }
             else
             {
-                output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files...\n")));
-                
-                // Run a silent Command Prompt to run old JAMSTA code.
-                Process p = new Process();
-                ProcessStartInfo info = new ProcessStartInfo();
-                info.WorkingDirectory = folderBrowserDialog.SelectedPath;
-                info.FileName = "CMD";
-                // (In order or commands) Merge all .ts files together into "MERGED.ts", run FFMPEG to convert the .ts file to .mp4, then delete the old .ts files.
-                info.Arguments = @"/C copy /b *.ts MERGED.ts && ffmpeg -loglevel panic -i MERGED.ts -acodec copy -vcodec copy JAMSTA.mp4 && del *.ts /f";
-                info.UseShellExecute = false;
-                info.WindowStyle = ProcessWindowStyle.Hidden;
-                info.CreateNoWindow = true;
-                p.StartInfo = info;
-                p.Start();
-                p.WaitForExit();
-
-                Thread.Sleep(2500);
-                output.Invoke(new Action(() => output.AppendText("Finished merging files!\n")));
-                Thread.Sleep(500);
-                output.Invoke(new Action(() => output.AppendText("Renaming merged file...\n")));
-                Thread.Sleep(500);
-
-                if (File.Exists(folderBrowserDialog.SelectedPath + "/JAMSTA.mp4"))
+                if (mp4Checkbox.Checked == true)
                 {
-                    File.Move(@folderBrowserDialog.SelectedPath + "/JAMSTA.mp4", @folderBrowserDialog.SelectedPath + "/" + renameText.Text + ".mp4");
-                    output.Invoke(new Action(() => output.AppendText("File renamed!\n")));
-                    output.Invoke(new Action(() => output.AppendText("\n")));
-                    output.Invoke(new Action(() => output.AppendText("Job completed!\n")));
-                    output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".mp4''\n")));
+                    output.Invoke(new Action(() => output.Text = String.Empty));
+                    output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files & Converting to MP4...\n")));
+
+                    // Run a silent Command Prompt to run old JAMSTA code.
+                    Process p = new Process();
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.WorkingDirectory = folderBrowserDialog.SelectedPath;
+                    info.FileName = "CMD";
+                    // (In order or commands) Merge all .ts files together into "MERGED.ts", run FFMPEG to convert the .ts file to .mp4, then delete the old .ts files.
+                    info.Arguments = @"/C copy /b *.ts MERGED.ts && ffmpeg -loglevel panic -i MERGED.ts -acodec copy -vcodec copy JAMSTA.mp4 && del *.ts /f";
+                    info.UseShellExecute = false;
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.CreateNoWindow = true;
+                    p.StartInfo = info;
+                    p.Start();
+                    p.WaitForExit();
+
+                    Thread.Sleep(2500);
+                    output.Invoke(new Action(() => output.AppendText("Finished merging files!\n")));
+                    Thread.Sleep(500);
+                    output.Invoke(new Action(() => output.AppendText("Renaming merged file...\n")));
+                    Thread.Sleep(500);
+
+                    if (File.Exists(folderBrowserDialog.SelectedPath + "/JAMSTA.mp4"))
+                    {
+                        File.Move(@folderBrowserDialog.SelectedPath + "/JAMSTA.mp4", @folderBrowserDialog.SelectedPath + "/" + renameText.Text + ".mp4");
+                        output.Invoke(new Action(() => output.AppendText("File renamed!\n")));
+                        output.Invoke(new Action(() => output.AppendText("\n")));
+                        output.Invoke(new Action(() => output.AppendText("Job completed!\n")));
+                        output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".mp4''\n")));
+                    }
+                    else
+                    {
+                        MessageBox.Show("JAMSTA.mp4 NOT FOUND", "ERROR",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        output.Invoke(new Action(() => output.Text = String.Empty));
+                        output.AppendText("JAMSTA.mp4 wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\n");
+                        return;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("JAMSTA.mp4 NOT FOUND", "ERROR",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    output.AppendText("JAMSTA.mp4 wasn't found in the chosen folder. Was this program modified?\n");
-                    return;
+                    output.Invoke(new Action(() => output.Text = String.Empty));
+                    output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files...\n")));
+
+                    // Run a silent Command Prompt to run old JAMSTA code.
+                    Process p = new Process();
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.WorkingDirectory = folderBrowserDialog.SelectedPath;
+                    info.FileName = "CMD";
+                    // (In order or commands) Merge all .ts files together into "MERGED.ts", run FFMPEG to convert the .ts file to .mp4, then delete the old .ts files.
+                    info.Arguments = @"/C copy /b *.ts MERGED.temp && del *.ts /f && ren MERGED.temp MERGED.ts";
+                    info.UseShellExecute = false;
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.CreateNoWindow = true;
+                    p.StartInfo = info;
+                    p.Start();
+                    p.WaitForExit();
+
+                    Thread.Sleep(2500);
+                    output.Invoke(new Action(() => output.AppendText("Finished merging files!\n")));
+                    Thread.Sleep(500);
+                    output.Invoke(new Action(() => output.AppendText("Renaming merged file...\n")));
+                    Thread.Sleep(500);
+
+                    if (File.Exists(folderBrowserDialog.SelectedPath + "/MERGED.ts"))
+                    {
+                        File.Move(@folderBrowserDialog.SelectedPath + "/MERGED.ts", @folderBrowserDialog.SelectedPath + "/" + renameText.Text + ".ts");
+                        output.Invoke(new Action(() => output.AppendText("File renamed!\n")));
+                        output.Invoke(new Action(() => output.AppendText("\n")));
+                        output.Invoke(new Action(() => output.AppendText("Job completed!\n")));
+                        output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".ts''\n")));
+                    }
+                    else
+                    {
+                        MessageBox.Show("MERGED.ts NOT FOUND", "ERROR",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        output.Invoke(new Action(() => output.Text = String.Empty));
+                        output.AppendText("MERGED.ts wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\n");
+                        return;
+                    }
                 }
             }
+        }
+
+        private void mp4Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.mp4Chk = mp4Checkbox.Checked;
+            Settings.Default.Save();
         }
     }
 }

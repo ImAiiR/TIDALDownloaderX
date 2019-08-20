@@ -55,6 +55,7 @@
             this.devTestButton = new System.Windows.Forms.Button();
             this.renameText = new System.Windows.Forms.TextBox();
             this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
+            this.mp4Checkbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.startNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.endNo)).BeginInit();
             this.SuspendLayout();
@@ -98,7 +99,7 @@
             this.output.Multiline = true;
             this.output.Name = "output";
             this.output.ReadOnly = true;
-            this.output.Size = new System.Drawing.Size(157, 165);
+            this.output.Size = new System.Drawing.Size(157, 192);
             this.output.TabIndex = 3;
             this.output.TextChanged += new System.EventHandler(this.output_TextChanged);
             // 
@@ -229,7 +230,7 @@
             // 
             // aboutButton
             // 
-            this.aboutButton.Location = new System.Drawing.Point(196, 293);
+            this.aboutButton.Location = new System.Drawing.Point(195, 320);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(76, 23);
             this.aboutButton.TabIndex = 18;
@@ -239,7 +240,7 @@
             // 
             // openFolder
             // 
-            this.openFolder.Location = new System.Drawing.Point(115, 293);
+            this.openFolder.Location = new System.Drawing.Point(114, 320);
             this.openFolder.Name = "openFolder";
             this.openFolder.Size = new System.Drawing.Size(76, 23);
             this.openFolder.TabIndex = 19;
@@ -272,7 +273,7 @@
             // devTestButton
             // 
             this.devTestButton.Enabled = false;
-            this.devTestButton.Location = new System.Drawing.Point(122, 259);
+            this.devTestButton.Location = new System.Drawing.Point(121, 286);
             this.devTestButton.Name = "devTestButton";
             this.devTestButton.Size = new System.Drawing.Size(144, 23);
             this.devTestButton.TabIndex = 21;
@@ -285,7 +286,7 @@
             // 
             this.renameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.renameText.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.renameText.Location = new System.Drawing.Point(13, 293);
+            this.renameText.Location = new System.Drawing.Point(12, 320);
             this.renameText.MinimumSize = new System.Drawing.Size(96, 23);
             this.renameText.Multiline = true;
             this.renameText.Name = "renameText";
@@ -300,11 +301,25 @@
             // 
             this.backgroundWorker4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker4_DoWork);
             // 
+            // mp4Checkbox
+            // 
+            this.mp4Checkbox.AutoSize = true;
+            this.mp4Checkbox.Checked = true;
+            this.mp4Checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mp4Checkbox.Location = new System.Drawing.Point(13, 293);
+            this.mp4Checkbox.Name = "mp4Checkbox";
+            this.mp4Checkbox.Size = new System.Drawing.Size(100, 17);
+            this.mp4Checkbox.TabIndex = 23;
+            this.mp4Checkbox.Text = "Convert to MP4";
+            this.mp4Checkbox.UseVisualStyleBackColor = true;
+            this.mp4Checkbox.CheckedChanged += new System.EventHandler(this.mp4Checkbox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 328);
+            this.ClientSize = new System.Drawing.Size(284, 355);
+            this.Controls.Add(this.mp4Checkbox);
             this.Controls.Add(this.renameText);
             this.Controls.Add(this.devTestButton);
             this.Controls.Add(this.ffmpegButton);
@@ -328,8 +343,8 @@
             this.Controls.Add(this.URI);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(300, 367);
-            this.MinimumSize = new System.Drawing.Size(300, 367);
+            this.MaximumSize = new System.Drawing.Size(300, 394);
+            this.MinimumSize = new System.Drawing.Size(300, 394);
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "TIDALDownloaderX";
@@ -369,6 +384,7 @@
         private System.Windows.Forms.Button devTestButton;
         private System.Windows.Forms.TextBox renameText;
         private System.ComponentModel.BackgroundWorker backgroundWorker4;
+        private System.Windows.Forms.CheckBox mp4Checkbox;
     }
 }
 

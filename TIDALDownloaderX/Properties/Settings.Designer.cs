@@ -34,5 +34,17 @@ namespace TIDALDownloaderX.Properties {
                 this["savedFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool mp4Chk {
+            get {
+                return ((bool)(this["mp4Chk"]));
+            }
+            set {
+                this["mp4Chk"] = value;
+            }
+        }
     }
 }
