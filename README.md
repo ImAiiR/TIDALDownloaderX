@@ -8,7 +8,7 @@ Modified from <a href="https://github.com/italicsjenga/TidalDownloader">TidalDow
 
 <p style="align:center;">
   <a href="https://github.com/ImAiiR/TIDALDownloaderX">
-    <img src="https://raw.githubusercontent.com/ImAiiR/TIDALDownloaderX/master/-assets/screen1.jpg" />
+    <img src="https://raw.githubusercontent.com/ImAiiR/TIDALDownloaderX/master/-assets/screen2.png" />
   </a>
 </p>
 
