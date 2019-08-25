@@ -78,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Settings.cs" />
+    <Compile Include="UI\updateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\updateForm.Designer.cs">
+      <DependentUpon>updateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\mainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +114,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\updateForm.resx">
+      <DependentUpon>updateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

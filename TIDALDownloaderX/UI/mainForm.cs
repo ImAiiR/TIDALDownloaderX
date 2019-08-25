@@ -14,6 +14,7 @@ using TidalDownloader;
 using TIDALDownloaderX.Properties;
 using System.Reflection;
 using System.Threading;
+using TIDALDownloaderX.UI;
 
 namespace TIDALDownloaderX
 {
@@ -26,12 +27,13 @@ namespace TIDALDownloaderX
 
         private void clickDownload(object sender, EventArgs e)
         {
+            // backgroundWorker1 is for downloading
             backgroundWorker1.RunWorkerAsync();
         }
 
         private void pickFolder_Click(object sender, EventArgs e)
         {
-            // Open Folder Browser to select path & Save
+            // Open Folder Browser to select path & Save the selection
             folderBrowserDialog.ShowDialog();
             Settings.Default.savedFolder = folderBrowserDialog.SelectedPath;
             Settings.Default.Save();
@@ -50,24 +52,6 @@ namespace TIDALDownloaderX
 
             string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string newVersion = sr.ReadToEnd();
-
-            if (currentVersion.Contains(newVersion))
-            {
-                // Do what usually happens at startup
-            }
-            else
-            {
-                DialogResult dialogResult = MessageBox.Show("The version you're using is outdated. Would you like to update now?", "New Version Available", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    Process.Start("https://aiir.xyz/TIDALDownloaderX/");
-                    Application.Exit();
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    // Do what usually happens at startup
-                }
-            }
 
             // Do what usually happens at startup
 
@@ -92,6 +76,15 @@ namespace TIDALDownloaderX
                 output.Invoke(new Action(() => output.AppendText("\n")));
                 output.Invoke(new Action(() => output.AppendText("Default Folder:\n")));
                 output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\n")));
+            }
+
+            if (currentVersion.Contains(newVersion))
+            {
+                // Do nothing. All is good.
+            }
+            else
+            {
+                new updateForm().ShowDialog(this);
             }
         }
 
@@ -224,6 +217,15 @@ namespace TIDALDownloaderX
                 return;
             }
 
+            // Disable most buttons and text fields while downloading 
+            ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = false));
+            downloadButton.Invoke(new Action(() => downloadButton.Enabled = false));
+            stitchButton.Invoke(new Action(() => stitchButton.Enabled = false));
+            jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = false));
+            zeroURL.Invoke(new Action(() => zeroURL.Enabled = false));
+            setURL.Invoke(new Action(() => setURL.Enabled = false));
+
+            // Being download process.
             WebClient wc = new WebClient();
 
             String loc = folderBrowserDialog.SelectedPath;
@@ -235,13 +237,22 @@ namespace TIDALDownloaderX
 
                 try
                 {
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                     wc.DownloadFile(URI.Text + i.ToString() + ".ts" + suffix.Text, loc + "\\" + i.ToString().PadLeft(8, '0') + ".ts");
                 }
                 catch
                 {
                     output.Invoke(new Action(() => output.AppendText(" \n")));
                     output.Invoke(new Action(() => output.AppendText("Job Completed!\n")));
-                    output.Invoke(new Action(() => output.AppendText("If not, your session expired. Refresh the TIDAL page, get a new link, & try again!\n")));
+                    output.Invoke(new Action(() => output.AppendText("If not, your session expired. Refresh & try again!\n")));
+                    output.Invoke(new Action(() => output.AppendText("\n")));
+                    output.Invoke(new Action(() => output.AppendText("Remember to set a filename then click Merge Files!\n")));
+                    ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                    downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
+                    stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                    jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
+                    zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
+                    setURL.Invoke(new Action(() => setURL.Enabled = true));
                     break;
                 }
             }
@@ -320,7 +331,6 @@ namespace TIDALDownloaderX
             //}
 
             // Move FFMPEG into selected path
-
             if (!File.Exists("Req/ffmpeg.exe"))
             {
                 MessageBox.Show("ffmpeg.exe is not present in the 'Req' folder! Make sure you've clicked on the 'Download Needed Files' button!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -360,6 +370,7 @@ namespace TIDALDownloaderX
 
         private void renameText_Enter(object sender, EventArgs e)
         {
+            // If placeholder text is changed.
             if (renameText.Text == "Filename")
             {
                 renameText.Text = "";
@@ -370,6 +381,7 @@ namespace TIDALDownloaderX
 
         private void renameText_Leave(object sender, EventArgs e)
         {
+            // If there's no text, switch to placeholder text.
             if (renameText.Text == "")
             {
                 renameText.Text = "Filename";
@@ -422,8 +434,15 @@ namespace TIDALDownloaderX
                 }
                 else
                 {
-                    // Disable "Convert to MP4" checkbox.
-                    mp4Checkbox.Enabled = false;
+                    // Disable most buttons and text fields while merging.
+                    mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = false));
+                    ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = false));
+                    pickFolder.Invoke(new Action(() => pickFolder.Enabled = false));
+                    downloadButton.Invoke(new Action(() => downloadButton.Enabled = false));
+                    stitchButton.Invoke(new Action(() => stitchButton.Enabled = false));
+                    jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = false));
+                    zeroURL.Invoke(new Action(() => zeroURL.Enabled = false));
+                    setURL.Invoke(new Action(() => setURL.Enabled = false));
 
                     output.Invoke(new Action(() => output.Text = String.Empty));
                     output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files & Converting to MP4...\n")));
@@ -470,7 +489,14 @@ namespace TIDALDownloaderX
                             output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".mp4''\n")));
                         }
 
-                        mp4Checkbox.Enabled = true;
+                        mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
+                        ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                        pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
+                        downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
+                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                        jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
+                        zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
+                        setURL.Invoke(new Action(() => setURL.Enabled = true));
                     }
                     else
                     {
@@ -478,7 +504,14 @@ namespace TIDALDownloaderX
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         output.Invoke(new Action(() => output.Text = String.Empty));
                         output.AppendText("JAMSTA.mp4 wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\n");
-                        mp4Checkbox.Enabled = true;
+                        mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
+                        ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                        pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
+                        downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
+                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                        jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
+                        zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
+                        setURL.Invoke(new Action(() => setURL.Enabled = true));
                         return;
                     }
                 }
@@ -486,7 +519,14 @@ namespace TIDALDownloaderX
             else // If "Convert to MP4" is NOT checked.
             {
                 // Disable "Convert to MP4" checkbox.
-                mp4Checkbox.Enabled = false;
+                mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = false));
+                ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = false));
+                pickFolder.Invoke(new Action(() => pickFolder.Enabled = false));
+                downloadButton.Invoke(new Action(() => downloadButton.Enabled = false));
+                stitchButton.Invoke(new Action(() => stitchButton.Enabled = false));
+                jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = false));
+                zeroURL.Invoke(new Action(() => zeroURL.Enabled = false));
+                setURL.Invoke(new Action(() => setURL.Enabled = false));
 
                 output.Invoke(new Action(() => output.Text = String.Empty));
                 output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files...\n")));
@@ -533,7 +573,14 @@ namespace TIDALDownloaderX
                         output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".ts''\n")));
                     }
 
-                    mp4Checkbox.Enabled = true;
+                    mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
+                    ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                    pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
+                    downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
+                    stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                    jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
+                    zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
+                    setURL.Invoke(new Action(() => setURL.Enabled = true));
                 }
                 else
                 {
@@ -541,7 +588,14 @@ namespace TIDALDownloaderX
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     output.Invoke(new Action(() => output.Text = String.Empty));
                     output.AppendText("MERGED.ts wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\n");
-                    mp4Checkbox.Enabled = true;
+                    mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
+                    ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                    pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
+                    downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
+                    stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                    jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
+                    zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
+                    setURL.Invoke(new Action(() => setURL.Enabled = true));
                     return;
                 }
             }
@@ -556,6 +610,12 @@ namespace TIDALDownloaderX
         private void renameText_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ffmpegButton_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip ToolTip1 = new ToolTip();
+            ToolTip1.SetToolTip(ffmpegButton, "Downloads FFMPEG. (Only needed for when you're converting to MP4)");
         }
     }
 }

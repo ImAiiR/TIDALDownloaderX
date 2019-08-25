@@ -257,6 +257,7 @@
             this.ffmpegButton.Text = "Download Needed Files";
             this.ffmpegButton.UseVisualStyleBackColor = true;
             this.ffmpegButton.Click += new System.EventHandler(this.button1_Click_2);
+            this.ffmpegButton.MouseHover += new System.EventHandler(this.ffmpegButton_MouseHover);
             // 
             // backgroundWorker1
             // 
