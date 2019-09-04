@@ -160,6 +160,7 @@
             this.stitchButton.Text = "Move Files";
             this.stitchButton.UseVisualStyleBackColor = true;
             this.stitchButton.Click += new System.EventHandler(this.stitchButton_Click);
+            this.stitchButton.MouseHover += new System.EventHandler(this.stitchButton_MouseHover);
             // 
             // pickFolder
             // 

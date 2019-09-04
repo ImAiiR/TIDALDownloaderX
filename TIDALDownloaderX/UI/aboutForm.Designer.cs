@@ -79,6 +79,7 @@
             this.Name = "aboutForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "About TIDALDownloaderX";
+            this.Load += new System.EventHandler(this.aboutForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

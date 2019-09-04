@@ -61,6 +61,16 @@ namespace TIDALDownloaderX
             // Set saved checkbox value.
             mp4Checkbox.Checked = Properties.Settings.Default.mp4Chk;
 
+            if (mp4Checkbox.Checked == true)
+            {
+                stitchButton.Enabled = true;
+            }
+
+            if (mp4Checkbox.Checked == false)
+            {
+                stitchButton.Enabled = false;
+            }
+
             // Check if there's no selected path.
             if (folderBrowserDialog.SelectedPath == null | folderBrowserDialog.SelectedPath == "")
             {
@@ -493,10 +503,30 @@ namespace TIDALDownloaderX
                         ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
                         pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
                         downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
-                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
                         jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
                         zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
                         setURL.Invoke(new Action(() => setURL.Enabled = true));
+
+                        // Check if "Convert to MP4" is checked
+                        if (mp4Checkbox.Checked == true)
+                        {
+                            stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                        }
+
+                        if (mp4Checkbox.Checked == false)
+                        {
+                            stitchButton.Invoke(new Action(() => stitchButton.Enabled = false));
+                        }
+
+                        if (mp4Checkbox.Checked == true)
+                        {
+                            ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                        }
+
+                        if (mp4Checkbox.Checked == false)
+                        {
+                            ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                        }
                     }
                     else
                     {
@@ -508,10 +538,30 @@ namespace TIDALDownloaderX
                         ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
                         pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
                         downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
-                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
                         jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
                         zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
                         setURL.Invoke(new Action(() => setURL.Enabled = true));
+
+                        // Check if "Convert to MP4" is checked
+                        if (mp4Checkbox.Checked == true)
+                        {
+                            stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                        }
+
+                        if (mp4Checkbox.Checked == false)
+                        {
+                            stitchButton.Invoke(new Action(() => stitchButton.Enabled = false));
+                        }
+
+                        if (mp4Checkbox.Checked == true)
+                        {
+                            ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                        }
+
+                        if (mp4Checkbox.Checked == false)
+                        {
+                            ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                        }
                         return;
                     }
                 }
@@ -574,13 +624,32 @@ namespace TIDALDownloaderX
                     }
 
                     mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
-                    ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
                     pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
                     downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
-                    stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
                     jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
                     zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
                     setURL.Invoke(new Action(() => setURL.Enabled = true));
+
+                    // Check if "Convert to MP4" is checked
+                    if (mp4Checkbox.Checked == true)
+                    {
+                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                    }
+
+                    if (mp4Checkbox.Checked == false)
+                    {
+                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = false));
+                    }
+
+                    if (mp4Checkbox.Checked == true)
+                    {
+                        ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                    }
+
+                    if (mp4Checkbox.Checked == false)
+                    {
+                        ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                    }
                 }
                 else
                 {
@@ -589,13 +658,32 @@ namespace TIDALDownloaderX
                     output.Invoke(new Action(() => output.Text = String.Empty));
                     output.AppendText("MERGED.ts wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\n");
                     mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
-                    ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
                     pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
                     downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
-                    stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
                     jamstaOpen.Invoke(new Action(() => jamstaOpen.Enabled = true));
                     zeroURL.Invoke(new Action(() => zeroURL.Enabled = true));
                     setURL.Invoke(new Action(() => setURL.Enabled = true));
+
+                    // Check if "Convert to MP4" is checked
+                    if (mp4Checkbox.Checked == true)
+                    {
+                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
+                    }
+
+                    if (mp4Checkbox.Checked == false)
+                    {
+                        stitchButton.Invoke(new Action(() => stitchButton.Enabled = false));
+                    }
+
+                    if (mp4Checkbox.Checked == true)
+                    {
+                        ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                    }
+
+                    if (mp4Checkbox.Checked == false)
+                    {
+                        ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
+                    }
                     return;
                 }
             }
@@ -605,6 +693,28 @@ namespace TIDALDownloaderX
         {
             Settings.Default.mp4Chk = mp4Checkbox.Checked;
             Settings.Default.Save();
+
+            // Disable "Move Files" button if checkbox is unchecked.
+            if (mp4Checkbox.Checked == true)
+            {
+                stitchButton.Enabled = true;
+            }
+
+            if (mp4Checkbox.Checked == false)
+            {
+                stitchButton.Enabled = false;
+            }
+
+            // Disable "Download Needed Files" button if checkbox is unchecked.
+            if (mp4Checkbox.Checked == true)
+            {
+                ffmpegButton.Enabled = true;
+            }
+
+            if (mp4Checkbox.Checked == false)
+            {
+                ffmpegButton.Enabled = false;
+            }
         }
 
         private void renameText_TextChanged(object sender, EventArgs e)
@@ -616,6 +726,12 @@ namespace TIDALDownloaderX
         {
             ToolTip ToolTip1 = new ToolTip();
             ToolTip1.SetToolTip(ffmpegButton, "Downloads FFMPEG. (Only needed for when you're converting to MP4)");
+        }
+
+        private void stitchButton_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip ToolTip2 = new ToolTip();
+            ToolTip2.SetToolTip(stitchButton, "Moves FFMPEG into chosen path. (Only needed for when you're converting to MP4)");
         }
     }
 }
