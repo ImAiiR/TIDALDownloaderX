@@ -46,6 +46,13 @@ namespace TIDALDownloaderX
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
             WebRequest wr = WebRequest.Create("http://aiir.xyz/TIDALDownloaderX/TDX-Version.txt");
             WebResponse ws = wr.GetResponse();
             StreamReader sr = new StreamReader(ws.GetResponseStream());
@@ -76,16 +83,16 @@ namespace TIDALDownloaderX
             {
                 // If there is NOT a saved path.
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("No default path has been set! Remember to Choose a Folder!\n")));
+                output.Invoke(new Action(() => output.AppendText("No default path has been set! Remember to Choose a Folder!\r\n")));
             }
             else
             {
                 // If there is a saved path.
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("Using the last folder you've selected on TDX as your chosen folder!\n")));
-                output.Invoke(new Action(() => output.AppendText("\n")));
-                output.Invoke(new Action(() => output.AppendText("Default Folder:\n")));
-                output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\n")));
+                output.Invoke(new Action(() => output.AppendText("Using the last folder you've selected on TDX as your chosen folder!\r\n")));
+                output.Invoke(new Action(() => output.AppendText("\r\n")));
+                output.Invoke(new Action(() => output.AppendText("Default Folder:\r\n")));
+                output.Invoke(new Action(() => output.AppendText(folderBrowserDialog.SelectedPath + "\r\n")));
             }
 
             if (currentVersion.Contains(newVersion))
@@ -119,7 +126,7 @@ namespace TIDALDownloaderX
             if (zeroURL.Text == null | zeroURL.Text == "")
             {
                 output.Text = String.Empty;
-                output.AppendText("Umm... There's no URL?\n");
+                output.AppendText("Umm... There's no URL?\r\n");
                 return;
             }
             else
@@ -130,7 +137,7 @@ namespace TIDALDownloaderX
                 URI.Text = url[0];
                 suffix.Text = url[1];
                 output.Text = String.Empty;
-                output.AppendText("URL Set!\n");
+                output.AppendText("URL Set!\r\n");
             }
         }
 
@@ -196,7 +203,7 @@ namespace TIDALDownloaderX
             if (folderBrowserDialog.SelectedPath == null | folderBrowserDialog.SelectedPath == "")
             {
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("ERROR: No path selected\n")));
+                output.Invoke(new Action(() => output.AppendText("ERROR: No path selected\r\n")));
                 return;
             }
 
@@ -204,7 +211,7 @@ namespace TIDALDownloaderX
             if (URI.Text == null | URI.Text == "")
             {
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("ERROR: No URL set / Incorrect link (not 0.ts)\n")));
+                output.Invoke(new Action(() => output.AppendText("ERROR: No URL set / Incorrect link (not 0.ts)\r\n")));
                 return;
             }
 
@@ -212,7 +219,7 @@ namespace TIDALDownloaderX
             if (File.Exists(folderBrowserDialog.SelectedPath + "/00000000.ts"))
             {
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("ERROR: You already have .ts files for another video downloaded! Be sure to merge the files together before downloading a new video!\n")));
+                output.Invoke(new Action(() => output.AppendText("ERROR: You already have .ts files for another video downloaded! Be sure to merge the files together before downloading a new video!\r\n")));
                 return;
             }
 
@@ -223,7 +230,7 @@ namespace TIDALDownloaderX
             {
                 // .ts files are in the directory. Tell the user, and DON'T download any files.
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.AppendText("ERROR: There are .ts files in the directory. Please move them to a new directory so they don't get merged together.\n");
+                output.AppendText("ERROR: There are .ts files in the directory. Please move them to a new directory so they don't get merged together.\r\n");
                 return;
             }
 
@@ -243,7 +250,7 @@ namespace TIDALDownloaderX
             for (int i = (int)startNo.Value; i < (int)endNo.Value + 1; i++)
             {
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("Downloading section #" + i.ToString() + "\n")));
+                output.Invoke(new Action(() => output.AppendText("Downloading section #" + i.ToString() + "\r\n")));
 
                 try
                 {
@@ -252,11 +259,11 @@ namespace TIDALDownloaderX
                 }
                 catch
                 {
-                    output.Invoke(new Action(() => output.AppendText(" \n")));
-                    output.Invoke(new Action(() => output.AppendText("Job Completed!\n")));
-                    output.Invoke(new Action(() => output.AppendText("If not, your session expired. Refresh & try again!\n")));
-                    output.Invoke(new Action(() => output.AppendText("\n")));
-                    output.Invoke(new Action(() => output.AppendText("Remember to set a filename then click Merge Files!\n")));
+                    output.Invoke(new Action(() => output.AppendText(" \r\n")));
+                    output.Invoke(new Action(() => output.AppendText("Job Completed!\r\n")));
+                    output.Invoke(new Action(() => output.AppendText("If not, your session expired. Refresh & try again!\r\n")));
+                    output.Invoke(new Action(() => output.AppendText("\r\n")));
+                    output.Invoke(new Action(() => output.AppendText("Remember to set a filename then click Merge Files!\r\n")));
                     ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
                     downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
                     stitchButton.Invoke(new Action(() => stitchButton.Enabled = true));
@@ -294,17 +301,17 @@ namespace TIDALDownloaderX
 
             if (File.Exists("Req/ffmpeg.exe"))
             {
-                output.Invoke(new Action(() => output.AppendText("FFmpeg already downloaded!\n")));
-                output.Invoke(new Action(() => output.AppendText("Downloads completed!\n")));
+                output.Invoke(new Action(() => output.AppendText("FFmpeg already downloaded!\r\n")));
+                output.Invoke(new Action(() => output.AppendText("Downloads completed!\r\n")));
             }
             else
             {
                 using (var client = new WebClient())
                 {
-                    output.Invoke(new Action(() => output.AppendText("FFmpeg Downloading....\n")));
+                    output.Invoke(new Action(() => output.AppendText("FFmpeg Downloading....\r\n")));
                     client.DownloadFile("http://aiir.xyz/ffmpeg.exe", "Req/ffmpeg.exe");
-                    output.Invoke(new Action(() => output.AppendText("FFmpeg Downloaded!\n")));
-                    output.Invoke(new Action(() => output.AppendText("Downloads completed!\n")));
+                    output.Invoke(new Action(() => output.AppendText("FFmpeg Downloaded!\r\n")));
+                    output.Invoke(new Action(() => output.AppendText("Downloads completed!\r\n")));
                 }
             }
         }
@@ -330,12 +337,12 @@ namespace TIDALDownloaderX
             //    {
             //        if (File.Exists(folderBrowserDialog.SelectedPath + "/JAMSTA.bat"))
             //        {
-            //            output.Invoke(new Action(() => output.AppendText("JAMSTA already in folder!\n")));
+            //            output.Invoke(new Action(() => output.AppendText("JAMSTA already in folder!\r\n")));
             //        }
             //        else
             //        {
             //            File.Copy("Req/JAMSTA.bat", folderBrowserDialog.SelectedPath + "/JAMSTA.bat");
-            //            output.Invoke(new Action(() => output.AppendText("JAMSTA moved!\n")));
+            //            output.Invoke(new Action(() => output.AppendText("JAMSTA moved!\r\n")));
             //        }
             //    }
             //}
@@ -357,12 +364,12 @@ namespace TIDALDownloaderX
                 {
                     if (File.Exists(folderBrowserDialog.SelectedPath + "/ffmpeg.exe"))
                     {
-                        output.Invoke(new Action(() => output.AppendText("FFMPEG already in folder!\n")));
+                        output.Invoke(new Action(() => output.AppendText("FFMPEG already in folder!\r\n")));
                     }
                     else
                     {
                         File.Copy("Req/ffmpeg.exe", folderBrowserDialog.SelectedPath + "/ffmpeg.exe");
-                        output.Invoke(new Action(() => output.AppendText("FFMPEG moved!\n")));
+                        output.Invoke(new Action(() => output.AppendText("FFMPEG moved!\r\n")));
                     }
                 }
             }
@@ -419,7 +426,7 @@ namespace TIDALDownloaderX
             {
                 // .ts files are in the directory. Tell the user, don't attempt to merge
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.AppendText("ERROR: There is only one .ts file in the directory. Did you forget to hit download?\n");
+                output.AppendText("ERROR: There is only one .ts file in the directory. Did you forget to hit download?\r\n");
                 return;
             }
 
@@ -430,7 +437,7 @@ namespace TIDALDownloaderX
             {
                 // There's no .ts files in the directory. Tell the user, don't attempt to merge
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.AppendText("ERROR: There are no .ts files in the directory. Did you forget to hit download?\n");
+                output.AppendText("ERROR: There are no .ts files in the directory. Did you forget to hit download?\r\n");
                 return;
             }
 
@@ -440,7 +447,7 @@ namespace TIDALDownloaderX
                 // Check to see if FFMPEG is in the selected path
                 if (!File.Exists(folderBrowserDialog.SelectedPath + "/ffmpeg.exe"))
                 {
-                    MessageBox.Show("FFMPEG is not present in the selected path!" + "\n" + "FFMPEG is required for converting to MP4! Be sure to click MOVE FILES!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("FFMPEG is not present in the selected path!" + "\r\n" + "FFMPEG is required for converting to MP4! Be sure to click MOVE FILES!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
@@ -455,7 +462,7 @@ namespace TIDALDownloaderX
                     setURL.Invoke(new Action(() => setURL.Enabled = false));
 
                     output.Invoke(new Action(() => output.Text = String.Empty));
-                    output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files & Converting to MP4...\n")));
+                    output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files & Converting to MP4...\r\n")));
 
                     // Run a silent Command Prompt to run old JAMSTA code.
                     Process p = new Process();
@@ -472,9 +479,9 @@ namespace TIDALDownloaderX
                     p.WaitForExit();
 
                     Thread.Sleep(2500);
-                    output.Invoke(new Action(() => output.AppendText("Finished merging files!\n")));
+                    output.Invoke(new Action(() => output.AppendText("Finished merging files!\r\n")));
                     Thread.Sleep(500);
-                    output.Invoke(new Action(() => output.AppendText("Renaming merged file...\n")));
+                    output.Invoke(new Action(() => output.AppendText("Renaming merged file...\r\n")));
                     Thread.Sleep(500);
 
                     if (File.Exists(folderBrowserDialog.SelectedPath + "/JAMSTA.mp4"))
@@ -483,20 +490,20 @@ namespace TIDALDownloaderX
                         if (renameText.Text == "" || renameText.Text == " " || renameText.Text == "Filename")
                         {
                             File.Move(@folderBrowserDialog.SelectedPath + "/JAMSTA.mp4", @folderBrowserDialog.SelectedPath + "/TIDALDownloaderX.mp4");
-                            output.Invoke(new Action(() => output.AppendText("File renamed!\n")));
-                            output.Invoke(new Action(() => output.AppendText("\n")));
-                            output.Invoke(new Action(() => output.AppendText("Job completed!\n")));
-                            output.Invoke(new Action(() => output.AppendText("You forgot to set a filename, so set default filename.\n")));
-                            output.Invoke(new Action(() => output.AppendText("\n")));
-                            output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''TIDALDownloaderX.mp4''\n")));
+                            output.Invoke(new Action(() => output.AppendText("File renamed!\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("Job completed!\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("You forgot to set a filename, so set default filename.\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''TIDALDownloaderX.mp4''\r\n")));
                         }
                         else
                         {
                             File.Move(@folderBrowserDialog.SelectedPath + "/JAMSTA.mp4", @folderBrowserDialog.SelectedPath + "/" + renameText.Text + ".mp4");
-                            output.Invoke(new Action(() => output.AppendText("File renamed!\n")));
-                            output.Invoke(new Action(() => output.AppendText("\n")));
-                            output.Invoke(new Action(() => output.AppendText("Job completed!\n")));
-                            output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".mp4''\n")));
+                            output.Invoke(new Action(() => output.AppendText("File renamed!\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("Job completed!\r\n")));
+                            output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".mp4''\r\n")));
                         }
 
                         mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
@@ -533,7 +540,7 @@ namespace TIDALDownloaderX
                         MessageBox.Show("JAMSTA.mp4 NOT FOUND", "ERROR",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         output.Invoke(new Action(() => output.Text = String.Empty));
-                        output.AppendText("JAMSTA.mp4 wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\n");
+                        output.AppendText("JAMSTA.mp4 wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\r\n");
                         mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
                         ffmpegButton.Invoke(new Action(() => ffmpegButton.Enabled = true));
                         pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
@@ -579,7 +586,7 @@ namespace TIDALDownloaderX
                 setURL.Invoke(new Action(() => setURL.Enabled = false));
 
                 output.Invoke(new Action(() => output.Text = String.Empty));
-                output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files...\n")));
+                output.Invoke(new Action(() => output.AppendText("Merging downloaded .ts files...\r\n")));
 
                 // Run a silent Command Prompt to run old JAMSTA code.
                 Process p = new Process();
@@ -596,9 +603,9 @@ namespace TIDALDownloaderX
                 p.WaitForExit();
 
                 Thread.Sleep(2500);
-                output.Invoke(new Action(() => output.AppendText("Finished merging files!\n")));
+                output.Invoke(new Action(() => output.AppendText("Finished merging files!\r\n")));
                 Thread.Sleep(500);
-                output.Invoke(new Action(() => output.AppendText("Renaming merged file...\n")));
+                output.Invoke(new Action(() => output.AppendText("Renaming merged file...\r\n")));
                 Thread.Sleep(500);
 
                 if (File.Exists(folderBrowserDialog.SelectedPath + "/MERGED.ts"))
@@ -607,20 +614,20 @@ namespace TIDALDownloaderX
                     if (renameText.Text == "" || renameText.Text == " " || renameText.Text == "Filename")
                     {
                         File.Move(@folderBrowserDialog.SelectedPath + "/MERGED.ts", @folderBrowserDialog.SelectedPath + "/TIDALDownloaderX.ts");
-                        output.Invoke(new Action(() => output.AppendText("File renamed!\n")));
-                        output.Invoke(new Action(() => output.AppendText("\n")));
-                        output.Invoke(new Action(() => output.AppendText("Job completed!\n")));
-                        output.Invoke(new Action(() => output.AppendText("You forgot to set a filename, so set default filename.\n")));
-                        output.Invoke(new Action(() => output.AppendText("\n")));
-                        output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''TIDALDownloaderX.ts''\n")));
+                        output.Invoke(new Action(() => output.AppendText("File renamed!\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("Job completed!\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("You forgot to set a filename, so set default filename.\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''TIDALDownloaderX.ts''\r\n")));
                     }
                     else
                     {
                         File.Move(@folderBrowserDialog.SelectedPath + "/MERGED.ts", @folderBrowserDialog.SelectedPath + "/" + renameText.Text + ".ts");
-                        output.Invoke(new Action(() => output.AppendText("File renamed!\n")));
-                        output.Invoke(new Action(() => output.AppendText("\n")));
-                        output.Invoke(new Action(() => output.AppendText("Job completed!\n")));
-                        output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".ts''\n")));
+                        output.Invoke(new Action(() => output.AppendText("File renamed!\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("Job completed!\r\n")));
+                        output.Invoke(new Action(() => output.AppendText("Click ''Open Folder'' and look for ''" + renameText.Text + ".ts''\r\n")));
                     }
 
                     mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
@@ -656,7 +663,7 @@ namespace TIDALDownloaderX
                     MessageBox.Show("MERGED.ts NOT FOUND", "ERROR",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     output.Invoke(new Action(() => output.Text = String.Empty));
-                    output.AppendText("MERGED.ts wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\n");
+                    output.AppendText("MERGED.ts wasn't found in the chosen folder. Did you download TIDAL's .ts files yet?\r\n");
                     mp4Checkbox.Invoke(new Action(() => mp4Checkbox.Enabled = true));
                     pickFolder.Invoke(new Action(() => pickFolder.Enabled = true));
                     downloadButton.Invoke(new Action(() => downloadButton.Enabled = true));
